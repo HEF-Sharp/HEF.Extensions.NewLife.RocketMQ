@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net5.0</TargetFrameworks>
+    <AssemblyName>HEF.Extensions.NewLife.RocketMQ.Bus</AssemblyName>
+    <RootNamespace>NewLife.RocketMQ.Bus</RootNamespace>
+    <AssemblyTitle>RocketMQ Bus实现</AssemblyTitle>
+    <Description>Bus implement for NewLife.RocketMQ</Description>
+    <Company>GreatBillows</Company>
+    <Copyright>Copyright © GreatBillows 2021</Copyright>
+    <Version>1.5.2021.0423</Version>
+    <FileVersion>1.5.2021.0423</FileVersion>
+    <AssemblyVersion>1.5.*</AssemblyVersion>
+    <Deterministic>false</Deterministic>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>$(AssemblyName)</PackageId>
+    <Authors>$(Company)</Authors>
+    <ProjectUrl>https://github.com/HEF-Sharp/HEF.Extensions.NewLife.RocketMQ</ProjectUrl>
+    <RepositoryUrl>https://github.com/HEF-Sharp/HEF.Extensions.NewLife.RocketMQ</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>RocketMQ;Bus</PackageTags>
+    <PackageReleaseNotes>Bus implement for NewLife.RocketMQ</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HEF.Porting.NewLife.RocketMQ" Version="1.5.2021.423" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+</Project>
