@@ -9,7 +9,7 @@ namespace NewLife.RocketMQ.AspNetCore
         {
             return services.AddHostedService((provider) =>
             {
-                var rocketMQControl = provider.GetRequiredService<IRocketMQControl>();
+                var rocketMQControl = provider.GetRequiredService<IMQBusControl>();
 
                 return new RocketMQHostedService(rocketMQControl);
             });

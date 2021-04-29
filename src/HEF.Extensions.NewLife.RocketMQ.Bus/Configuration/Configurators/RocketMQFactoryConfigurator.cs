@@ -39,14 +39,15 @@ namespace NewLife.RocketMQ.Bus
             _producers.Add(producerSpec);
         }
 
-        public void TopicConsumer(string topicName, string group, Action<IRocketMQConsumerConfigurator> configure)
+        public void TopicConsumer<TContent>(string topicName, string group, Action<IRocketMQConsumerConfigurator<TContent>> configure)
+            where TContent : class
         {
             if (topicName.IsNullOrWhiteSpace())
                 throw new ArgumentNullException(nameof(topicName));
             if (group.IsNullOrWhiteSpace())
                 throw new ArgumentNullException(nameof(group));
 
-            var consumerSpec = new RocketMQConsumerSpecification(topicName, group);
+            var consumerSpec = new RocketMQConsumerSpecification<TContent>(topicName, group);
             configure?.Invoke(consumerSpec);
 
             _consumers.Add(consumerSpec);

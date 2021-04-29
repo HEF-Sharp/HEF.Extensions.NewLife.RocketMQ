@@ -1,12 +1,30 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NewLife.RocketMQ.Bus
 {
-    public class RocketMQConsumerSpecification
-        : IRocketMQConsumerSpecification, IRocketMQConsumerConfigurator
+    public interface IRocketMQConsumerSpecification : IRocketMQProducerSpecification
+    {
+        /// <summary>
+        /// 消费组
+        /// </summary>
+        string Group { get; }
+
+        /// <summary>
+        /// 关注标签列表
+        /// </summary>
+        public string[] Tags { get; }
+    }
+
+    public class RocketMQConsumerSpecification<TContent>
+        : IRocketMQConsumerSpecification, IRocketMQConsumerConfigurator<TContent>
+        where TContent : class
     {
         private Action<Consumer> _consumerConfigure;
-        private IMessageDeserializer _messageDeserializer;
+
+        private List<string> _subscribeTags = new();
+        private IMessageDeserializer _messageDeserializer;        
 
         public RocketMQConsumerSpecification(string topicName, string group)
         {
@@ -14,18 +32,28 @@ namespace NewLife.RocketMQ.Bus
             Group = group;
         }
 
-        public String TopicName { get; }
+        public string TopicName { get; }
 
-        public String Group { get; }
+        public string Group { get; }
 
-        public void Configure(Action<Consumer> configure)
+        public string[] Tags => _subscribeTags.ToArray();        
+
+        public void WithTags(params string[] tags)
         {
-            _consumerConfigure = configure;
+            if (tags != null && tags.Length > 0)
+            {
+                _subscribeTags.AddRange(tags.Distinct());
+            }
         }
 
         public void Deserialize(IMessageDeserializer deserializer)
         {
             _messageDeserializer = deserializer ?? throw new ArgumentNullException(nameof(deserializer));
+        }
+
+        public void Configure(Action<Consumer> configure)
+        {
+            _consumerConfigure = configure;
         }
     }
 }

@@ -8,9 +8,9 @@ namespace NewLife.RocketMQ.AspNetCore
 {
     public class RocketMQHostedService : IHostedService
     {
-        private readonly IRocketMQControl _rocketMQControl;
+        private readonly IMQBusControl _rocketMQControl;
 
-        public RocketMQHostedService(IRocketMQControl rocketMQControl)
+        public RocketMQHostedService(IMQBusControl rocketMQControl)
         {
             _rocketMQControl = rocketMQControl ?? throw new ArgumentNullException(nameof(rocketMQControl));
         }

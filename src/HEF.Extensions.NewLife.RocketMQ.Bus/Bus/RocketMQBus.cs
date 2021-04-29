@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace NewLife.RocketMQ.Bus
 {
-    public class RocketMQBus : IRocketMQControl
+    public class RocketMQBus : IMQBusControl
     {
         public Task StartAsync(CancellationToken cancellationToken = default)
         {
