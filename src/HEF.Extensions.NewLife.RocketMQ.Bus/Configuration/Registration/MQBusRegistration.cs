@@ -11,10 +11,10 @@ namespace NewLife.RocketMQ.Bus
 
     public class MQBusRegistration : IMQBusRegistration
     {
-        private readonly IServiceProvider _provider;
+        private readonly IMQServiceProvider _provider;
         private readonly IReadOnlyDictionary<Type, IMQMessageConsumerRegistration> _messageConsumers;        
 
-        public MQBusRegistration(IServiceProvider provider, IReadOnlyDictionary<Type, IMQMessageConsumerRegistration> messageConsumers)
+        public MQBusRegistration(IMQServiceProvider provider, IReadOnlyDictionary<Type, IMQMessageConsumerRegistration> messageConsumers)
         {
             _provider = provider;
             _messageConsumers = messageConsumers;
@@ -28,7 +28,7 @@ namespace NewLife.RocketMQ.Bus
             if (!_messageConsumers.TryGetValue(messageConsumerType, out var messageConsumer))
                 throw new ArgumentException($"The message consumer type was not found: {messageConsumerType.Name}", nameof(TMessageConsumer));
 
-            messageConsumer.BindConsumer(configurator);
+            messageConsumer.AttachToConsumer(configurator, _provider);
         }
     }
 }

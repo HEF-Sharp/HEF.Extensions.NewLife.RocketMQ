@@ -6,7 +6,7 @@ namespace NewLife.RocketMQ.Bus
     {
         Type MessageConsumerType { get; }
 
-        void BindConsumer(IMQConsumerConfigurator configurator);
+        void AttachToConsumer(IMQConsumerConfigurator configurator, IMQServiceProvider provider);
     }
 
     public class MQMessageConsumerRegistration<TMessageConsumer> : IMQMessageConsumerRegistration
@@ -14,7 +14,7 @@ namespace NewLife.RocketMQ.Bus
     {
         public Type MessageConsumerType => typeof(TMessageConsumer);
 
-        public void BindConsumer(IMQConsumerConfigurator configurator)
+        public void AttachToConsumer(IMQConsumerConfigurator configurator, IMQServiceProvider provider)
         {
             throw new NotImplementedException();
         }

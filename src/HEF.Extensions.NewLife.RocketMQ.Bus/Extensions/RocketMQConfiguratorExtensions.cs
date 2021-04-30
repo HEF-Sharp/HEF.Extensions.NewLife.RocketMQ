@@ -48,12 +48,12 @@ namespace NewLife.RocketMQ.Bus
             registration.ConfigureMessageConsumer<TMessageConsumer>(configurator);
         }
 
-        public static void BindTypedConsumer<TContent, TTypedConsumer>(this IRocketMQConsumerConfigurator<TContent> configurator,
+        public static void BindTypedMessageConsumer<TContent, TTypedMessageConsumer>(this IRocketMQConsumerConfigurator<TContent> configurator,
             IMQBusRegistration registration)
             where TContent : class
-            where TTypedConsumer : class, IRocketMQTypedConsumer<TContent>
+            where TTypedMessageConsumer : class, IRocketMQTypedMessageConsumer<TContent>
         {
-            configurator.BindMessageConsumer<TTypedConsumer>(registration);
+            configurator.BindMessageConsumer<TTypedMessageConsumer>(registration);
         }
     }
 }

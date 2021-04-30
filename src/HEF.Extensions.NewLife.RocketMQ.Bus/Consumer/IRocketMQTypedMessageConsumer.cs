@@ -2,10 +2,10 @@
 
 namespace NewLife.RocketMQ.Bus
 {
-    public interface IRocketMQTypedConsumer<TContent> : IMessageConsumer
+    public interface IRocketMQTypedMessageConsumer<TContent> : IMessageConsumer
         where TContent : class
     {
-        Task Consume(TypedMessageExt<TContent> typedMessage);
+        Task<bool> Consume(TypedMessageExt<TContent> typedMessage);
     }
 
     /// <summary>

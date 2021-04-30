@@ -32,7 +32,7 @@ namespace NewLife.RocketMQ.Bus
             });
         }
 
-        protected MQBusRegistration CreateRegistration(IServiceProvider provider)
+        protected IMQBusRegistration CreateRegistration(IMQServiceProvider provider)
         {
             return new MQBusRegistration(provider, _messageConsumers);
         }

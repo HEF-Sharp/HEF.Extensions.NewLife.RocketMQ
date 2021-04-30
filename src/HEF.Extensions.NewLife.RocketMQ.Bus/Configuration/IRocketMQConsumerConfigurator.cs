@@ -4,7 +4,7 @@ namespace NewLife.RocketMQ.Bus
 {
     public interface IMQConsumerConfigurator
     {
-        void Deserialize(IMessageDeserializer deserializer);
+        void Deserialize(IMessageDeserializer deserializer);        
     }
 
     public interface IRocketMQConsumerConfigurator : IMQConsumerConfigurator
