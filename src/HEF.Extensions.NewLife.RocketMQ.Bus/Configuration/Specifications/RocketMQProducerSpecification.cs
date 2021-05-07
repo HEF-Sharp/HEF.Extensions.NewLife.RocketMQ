@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HEF.MQ.Bus;
+using NewLife.RocketMQ.Protocol;
+using System;
 
 namespace NewLife.RocketMQ.Bus
 {
@@ -11,16 +13,16 @@ namespace NewLife.RocketMQ.Bus
         : IRocketMQProducerSpecification, IRocketMQProducerConfigurator
     {
         private Action<Producer> _producerConfigure;
-        private IMessageSerializer _messageSerializer;
+        private IMQMessageSerializer<Message> _messageSerializer;
 
         public RocketMQProducerSpecification(string topicName)
         {
             TopicName = topicName;
         }
 
-        public string TopicName { get; }        
+        public string TopicName { get; }
 
-        public void Serialize(IMessageSerializer serializer)
+        public void Serialize(IMQMessageSerializer<Message> serializer)
         {
             _messageSerializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
         }

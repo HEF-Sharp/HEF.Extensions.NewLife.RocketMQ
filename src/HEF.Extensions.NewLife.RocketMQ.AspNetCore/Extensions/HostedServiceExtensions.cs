@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using NewLife.RocketMQ.Bus;
+﻿using HEF.MQ.Bus;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace NewLife.RocketMQ.AspNetCore
 {
@@ -7,7 +7,7 @@ namespace NewLife.RocketMQ.AspNetCore
     {
         public static IServiceCollection AddRocketMQHostedService(this IServiceCollection services)
         {
-            return services.AddHostedService((provider) =>
+            return services.AddHostedService(provider =>
             {
                 var rocketMQControl = provider.GetRequiredService<IMQBusControl>();
 

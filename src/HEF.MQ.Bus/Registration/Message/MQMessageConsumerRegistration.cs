@@ -1,12 +1,13 @@
 ﻿using System;
 
-namespace NewLife.RocketMQ.Bus
+namespace HEF.MQ.Bus
 {
     public interface IMQMessageConsumerRegistration
     {
         Type MessageConsumerType { get; }
 
-        void AttachToConsumer(IMQConsumerConfigurator configurator, IMQServiceProvider provider);
+        void AttachToConsumer<TMessage>(IMQConsumerConfigurator<TMessage> configurator, IMQServiceProvider provider)
+            where TMessage : class;
     }
 
     public class MQMessageConsumerRegistration<TMessageConsumer> : IMQMessageConsumerRegistration
@@ -14,7 +15,8 @@ namespace NewLife.RocketMQ.Bus
     {
         public Type MessageConsumerType => typeof(TMessageConsumer);
 
-        public void AttachToConsumer(IMQConsumerConfigurator configurator, IMQServiceProvider provider)
+        public void AttachToConsumer<TMessage>(IMQConsumerConfigurator<TMessage> configurator, IMQServiceProvider provider)
+            where TMessage : class
         {
             throw new NotImplementedException();
         }

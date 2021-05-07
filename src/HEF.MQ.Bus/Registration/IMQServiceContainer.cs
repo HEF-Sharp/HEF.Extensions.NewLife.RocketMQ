@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NewLife.RocketMQ.Bus
+namespace HEF.MQ.Bus
 {
     public interface IMQServiceContainer
     {
@@ -15,10 +15,10 @@ namespace NewLife.RocketMQ.Bus
             where TService : class
             where TImplementation : class, TService;
 
-        void RegisterScoped<TService>(Func<IServiceProvider, TService> factoryMethod)
+        void RegisterScoped<TService>(Func<IMQServiceProvider, TService> factoryMethod)
             where TService : class;
 
-        void RegisterSingleton<TService>(Func<IServiceProvider, TService> factoryMethod)
+        void RegisterSingleton<TService>(Func<IMQServiceProvider, TService> factoryMethod)
             where TService : class;
     }
 }

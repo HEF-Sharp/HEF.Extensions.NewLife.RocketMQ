@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
-using NewLife.RocketMQ.Bus;
+﻿using HEF.MQ.Bus;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

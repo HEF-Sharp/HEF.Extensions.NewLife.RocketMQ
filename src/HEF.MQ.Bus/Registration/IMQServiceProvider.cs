@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NewLife.RocketMQ.Bus
+namespace HEF.MQ.Bus
 {
     public interface IMQServiceProvider
     {

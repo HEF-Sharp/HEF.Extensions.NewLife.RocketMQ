@@ -1,4 +1,5 @@
 ﻿using System;
+using HEF.MQ.Bus;
 using NewLife.RocketMQ.Protocol;
 #if NETSTANDARD2_0
 using Newtonsoft.Json;
@@ -8,22 +9,22 @@ using System.Text.Json;
 
 namespace NewLife.RocketMQ.Bus
 {
-    public class MessageJsonSerializer : IMessageSerializer
+    public class RocketMQMessageJsonSerializer : IRocketMQMessageSerializer
     {
 #if NETSTANDARD2_0
         private readonly JsonSerializerSettings _serializerSettings;
 
-        public MessageJsonSerializer()
+        public RocketMQMessageJsonSerializer()
             : this(new JsonSerializerSettings())
         { }
 
-        public MessageJsonSerializer(JsonSerializerSettings serializerSettings)
+        public RocketMQMessageJsonSerializer(JsonSerializerSettings serializerSettings)
         {
             _serializerSettings = serializerSettings ?? throw new ArgumentNullException(nameof(serializerSettings));
         }
 
-        public Message Serialize<T>(TypedMessage<T> typedMessage)
-            where T : class
+        public Message Serialize<TContent>(MQTypedMessage<Message, TContent> typedMessage)
+            where TContent : class
         {
             typedMessage.Message.BodyString = JsonConvert.SerializeObject(typedMessage.Content, _serializerSettings);
 
@@ -32,17 +33,17 @@ namespace NewLife.RocketMQ.Bus
 #else
         private readonly JsonSerializerOptions _serializerOptions;
 
-        public MessageJsonSerializer()
+        public RocketMQMessageJsonSerializer()
             : this(new JsonSerializerOptions())
         { }
 
-        public MessageJsonSerializer(JsonSerializerOptions serializerOptions)
+        public RocketMQMessageJsonSerializer(JsonSerializerOptions serializerOptions)
         {
             _serializerOptions = serializerOptions ?? throw new ArgumentNullException(nameof(serializerOptions));
         }
 
-        public Message Serialize<T>(TypedMessage<T> typedMessage)
-            where T : class
+        public Message Serialize<TContent>(MQTypedMessage<Message, TContent> typedMessage)
+            where TContent : class
         {
             typedMessage.Message.BodyString = JsonSerializer.Serialize(typedMessage.Content, _serializerOptions);
 

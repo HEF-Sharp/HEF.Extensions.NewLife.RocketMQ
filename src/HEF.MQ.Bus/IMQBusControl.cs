@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace NewLife.RocketMQ.Bus
+namespace HEF.MQ.Bus
 {    
     public interface IMQBusControl
     {

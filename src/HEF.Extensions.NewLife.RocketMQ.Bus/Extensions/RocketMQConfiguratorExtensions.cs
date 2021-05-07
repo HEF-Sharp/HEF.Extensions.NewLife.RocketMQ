@@ -1,4 +1,6 @@
 ﻿using System;
+using HEF.MQ.Bus;
+using NewLife.RocketMQ.Protocol;
 #if NETSTANDARD2_0
 using Newtonsoft.Json;
 #else
@@ -15,7 +17,7 @@ namespace NewLife.RocketMQ.Bus
             var serializerSettings = new JsonSerializerSettings();
             serializeConfigure?.Invoke(serializerSettings);
 
-            configurator.Serialize(new MessageJsonSerializer(serializerSettings));
+            configurator.Serialize(new RocketMQMessageJsonSerializer(serializerSettings));
         }
 
         public static void JsonDeserialize(this IRocketMQConsumerConfigurator configurator, Action<JsonSerializerSettings> serializeConfigure)           
@@ -23,7 +25,7 @@ namespace NewLife.RocketMQ.Bus
             var serializerSettings = new JsonSerializerSettings();
             serializeConfigure?.Invoke(serializerSettings);
 
-            configurator.Deserialize(new MessageJsonDeserializer(serializerSettings));
+            configurator.Deserialize(new RocketMQMessageJsonDeserializer(serializerSettings));
         }
 #else
         public static void JsonSerialize(this IRocketMQProducerConfigurator configurator, Action<JsonSerializerOptions> serializeConfigure)
@@ -31,7 +33,7 @@ namespace NewLife.RocketMQ.Bus
             var serializerOptions = new JsonSerializerOptions();
             serializeConfigure?.Invoke(serializerOptions);
 
-            configurator.Serialize(new MessageJsonSerializer(serializerOptions));
+            configurator.Serialize(new RocketMQMessageJsonSerializer(serializerOptions));
         }
 
         public static void JsonDeserialize(this IRocketMQConsumerConfigurator configurator, Action<JsonSerializerOptions> serializeConfigure)
@@ -39,21 +41,21 @@ namespace NewLife.RocketMQ.Bus
             var serializerOptions = new JsonSerializerOptions();
             serializeConfigure?.Invoke(serializerOptions);
 
-            configurator.Deserialize(new MessageJsonDeserializer(serializerOptions));
+            configurator.Deserialize(new RocketMQMessageJsonDeserializer(serializerOptions));
         }
 #endif
-        public static void BindMessageConsumer<TMessageConsumer>(this IMQConsumerConfigurator configurator, IMQBusRegistration registration)
+        public static void BindMessageConsumer<TMessageConsumer>(this IRocketMQConsumerConfigurator configurator, IMQBusRegistration registration)            
             where TMessageConsumer : class, IMessageConsumer
         {
-            registration.ConfigureMessageConsumer<TMessageConsumer>(configurator);
+            configurator.BindMessageConsumer<MessageExt, TMessageConsumer>(registration);
         }
 
-        public static void BindTypedMessageConsumer<TContent, TTypedMessageConsumer>(this IRocketMQConsumerConfigurator<TContent> configurator,
-            IMQBusRegistration registration)
+        public static void BindTypedMessageConsumer<TContent, TTypedMessageConsumer>(this IRocketMQConsumerConfigurator configurator,
+            IMQBusRegistration registration)            
             where TContent : class
-            where TTypedMessageConsumer : class, IRocketMQTypedMessageConsumer<TContent>
+            where TTypedMessageConsumer : class, IMQTypedMessageConsumer<MessageExt, TContent>
         {
-            configurator.BindMessageConsumer<TTypedMessageConsumer>(registration);
+            configurator.BindTypedMessageConsumer<MessageExt, TContent, TTypedMessageConsumer>(registration);
         }
     }
 }

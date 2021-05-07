@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>HEF.MQ.Bus</AssemblyName>
+    <RootNamespace>HEF.MQ.Bus</RootNamespace>
+    <AssemblyTitle>MQ Bus</AssemblyTitle>
+    <Description>MQ.Bus by HEF</Description>
+    <Company>GreatBillows</Company>
+    <Copyright>Copyright © GreatBillows 2021</Copyright>
+    <Version>1.0.0.0</Version>
+    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.0.*</AssemblyVersion>
+    <Deterministic>false</Deterministic>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>$(AssemblyName)</PackageId>
+    <Authors>$(Company)</Authors>
+    <ProjectUrl>https://github.com/HEF-Sharp/HEF.Extensions.NewLife.RocketMQ</ProjectUrl>
+    <RepositoryUrl>https://github.com/HEF-Sharp/HEF.Extensions.NewLife.RocketMQ</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>MQ;Bus</PackageTags>
+    <PackageReleaseNotes>MQ.Bus by HEF</PackageReleaseNotes>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+  </PropertyGroup>
+
+</Project>

@@ -1,4 +1,5 @@
-﻿using NewLife.RocketMQ.Protocol;
+﻿using HEF.MQ.Bus;
+using NewLife.RocketMQ.Protocol;
 using System;
 
 namespace NewLife.RocketMQ.Bus
@@ -6,9 +7,9 @@ namespace NewLife.RocketMQ.Bus
     public class RocketMQTypedProducer : IRocketMQTypedProducer
     {
         private readonly Producer _innerProducer;
-        private readonly IMessageSerializer _messageSerializer;
+        private readonly IRocketMQMessageSerializer _messageSerializer;
 
-        public RocketMQTypedProducer(Producer producer, IMessageSerializer messageSerializer)
+        public RocketMQTypedProducer(Producer producer, IRocketMQMessageSerializer messageSerializer)
         {
             if (producer == null)
                 throw new ArgumentNullException(nameof(producer));
@@ -30,7 +31,7 @@ namespace NewLife.RocketMQ.Bus
             if (content == null)
                 throw new ArgumentNullException(nameof(content));
 
-            var typedMessage = new TypedMessage<TContent>
+            var typedMessage = new MQTypedMessage<Message, TContent>
             {
                 Content = content,
                 Message = new Message { Tags = tag, Keys = key }

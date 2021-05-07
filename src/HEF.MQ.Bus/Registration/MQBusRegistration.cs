@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NewLife.RocketMQ.Bus
+namespace HEF.MQ.Bus
 {
     public interface IMQBusRegistration
     {
-        void ConfigureMessageConsumer<TMessageConsumer>(IMQConsumerConfigurator configurator)
+        void ConfigureMessageConsumer<TMessage, TMessageConsumer>(IMQConsumerConfigurator<TMessage> configurator)
+            where TMessage : class
             where TMessageConsumer : class, IMessageConsumer;
     }
 
@@ -20,7 +21,8 @@ namespace NewLife.RocketMQ.Bus
             _messageConsumers = messageConsumers;
         }
 
-        public void ConfigureMessageConsumer<TMessageConsumer>(IMQConsumerConfigurator configurator)
+        public void ConfigureMessageConsumer<TMessage, TMessageConsumer>(IMQConsumerConfigurator<TMessage> configurator)
+            where TMessage : class
             where TMessageConsumer : class, IMessageConsumer
         {
             var messageConsumerType = typeof(TMessageConsumer);

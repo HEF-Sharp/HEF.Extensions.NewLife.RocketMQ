@@ -1,18 +1,17 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using NewLife.RocketMQ.Bus;
 using System;
 
-namespace NewLife.RocketMQ.AspNetCore
+namespace HEF.MQ.Bus
 {
-    public class MQServiceCollectionContainer : IMQServiceContainer
+    public class DependencyInjectionMQServiceContainer : IMQServiceContainer
     {
         private readonly IServiceCollection _collection;
 
-        public MQServiceCollectionContainer(IServiceCollection collection)
+        public DependencyInjectionMQServiceContainer(IServiceCollection collection)
         {
             _collection = collection;
-        }
+        }        
 
         void IMQServiceContainer.RegisterMessageConsumer<TMessageConsumer>()
         {
@@ -29,14 +28,14 @@ namespace NewLife.RocketMQ.AspNetCore
             _collection.TryAddSingleton<TService, TImplementation>();
         }
 
-        public void RegisterScoped<TService>(Func<IServiceProvider, TService> factoryMethod) where TService : class
+        public void RegisterScoped<TService>(Func<IMQServiceProvider, TService> factoryMethod) where TService : class
         {
-            _collection.TryAddScoped((provider) => factoryMethod.Invoke(provider));
+            _collection.TryAddScoped(provider => factoryMethod.Invoke(new DependencyInjectionMQServiceProvider(provider)));
         }
 
-        public void RegisterSingleton<TService>(Func<IServiceProvider, TService> factoryMethod) where TService : class
+        public void RegisterSingleton<TService>(Func<IMQServiceProvider, TService> factoryMethod) where TService : class
         {
-            _collection.TryAddSingleton((provider) => factoryMethod.Invoke(provider));
+            _collection.TryAddSingleton(provider => factoryMethod.Invoke(new DependencyInjectionMQServiceProvider(provider)));
         }
     }
 }

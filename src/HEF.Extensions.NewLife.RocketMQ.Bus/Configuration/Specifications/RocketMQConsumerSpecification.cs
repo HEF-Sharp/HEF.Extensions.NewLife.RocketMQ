@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HEF.MQ.Bus;
+using NewLife.RocketMQ.Protocol;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -24,7 +26,7 @@ namespace NewLife.RocketMQ.Bus
         private Action<Consumer> _consumerConfigure;
 
         private List<string> _subscribeTags = new();
-        private IMessageDeserializer _messageDeserializer;        
+        private IMQMessageDeserializer<MessageExt> _messageDeserializer;        
 
         public RocketMQConsumerSpecification(string topicName, string group)
         {
@@ -46,7 +48,7 @@ namespace NewLife.RocketMQ.Bus
             }
         }
 
-        public void Deserialize(IMessageDeserializer deserializer)
+        public void Deserialize(IMQMessageDeserializer<MessageExt> deserializer)
         {
             _messageDeserializer = deserializer ?? throw new ArgumentNullException(nameof(deserializer));
         }

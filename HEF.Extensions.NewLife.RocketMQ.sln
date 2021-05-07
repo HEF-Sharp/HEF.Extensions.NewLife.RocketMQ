@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30709.132
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HEF.Extensions.NewLife.RocketMQ.Bus", "src\HEF.Extensions.NewLife.RocketMQ.Bus\HEF.Extensions.NewLife.RocketMQ.Bus.csproj", "{009148BF-8267-43A5-B732-CAD2A18FDD64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HEF.Extensions.NewLife.RocketMQ.Bus", "src\HEF.Extensions.NewLife.RocketMQ.Bus\HEF.Extensions.NewLife.RocketMQ.Bus.csproj", "{009148BF-8267-43A5-B732-CAD2A18FDD64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HEF.Extensions.NewLife.RocketMQ.AspNetCore", "src\HEF.Extensions.NewLife.RocketMQ.AspNetCore\HEF.Extensions.NewLife.RocketMQ.AspNetCore.csproj", "{4D3C89CC-D135-4D10-9201-16FBEC0DB617}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HEF.Extensions.NewLife.RocketMQ.AspNetCore", "src\HEF.Extensions.NewLife.RocketMQ.AspNetCore\HEF.Extensions.NewLife.RocketMQ.AspNetCore.csproj", "{4D3C89CC-D135-4D10-9201-16FBEC0DB617}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HEF.MQ.Bus", "src\HEF.MQ.Bus\HEF.MQ.Bus.csproj", "{5821C863-0A71-4F45-A2AF-BB68B1939E86}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HEF.MQ.Bus.DependencyInjection", "src\HEF.MQ.Bus.DependencyInjection\HEF.MQ.Bus.DependencyInjection.csproj", "{95081792-0EAC-4441-846F-028B10307B1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{4D3C89CC-D135-4D10-9201-16FBEC0DB617}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D3C89CC-D135-4D10-9201-16FBEC0DB617}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D3C89CC-D135-4D10-9201-16FBEC0DB617}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5821C863-0A71-4F45-A2AF-BB68B1939E86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5821C863-0A71-4F45-A2AF-BB68B1939E86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5821C863-0A71-4F45-A2AF-BB68B1939E86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5821C863-0A71-4F45-A2AF-BB68B1939E86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95081792-0EAC-4441-846F-028B10307B1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95081792-0EAC-4441-846F-028B10307B1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95081792-0EAC-4441-846F-028B10307B1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95081792-0EAC-4441-846F-028B10307B1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
