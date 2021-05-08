@@ -7,7 +7,7 @@ namespace HEF.MQ.Bus
     {
         IMQServiceContainer Container { get; }
 
-        void AddMessageConsumer<TMessageConsumer>() where TMessageConsumer : class, IMessageConsumer;
+        void AddMessageConsumer<TMessageConsumer>() where TMessageConsumer : class, IMQMessageConsumer;
     }
 
     public class MQBusRegisterConfigurator : IMQBusRegisterConfigurator
@@ -22,7 +22,7 @@ namespace HEF.MQ.Bus
         public IMQServiceContainer Container { get; }
 
         public void AddMessageConsumer<TMessageConsumer>()
-            where TMessageConsumer : class, IMessageConsumer
+            where TMessageConsumer : class, IMQMessageConsumer
         {
             _messageConsumers.GetOrAdd(typeof(TMessageConsumer), (type) =>
             {

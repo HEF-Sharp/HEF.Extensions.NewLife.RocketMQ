@@ -8,15 +8,26 @@ namespace HEF.MQ.Bus
 
         void AttachToConsumer<TMessage>(IMQConsumerConfigurator<TMessage> configurator, IMQServiceProvider provider)
             where TMessage : class;
+
+        void AttachToConsumer<TMessage, TContent>(IMQConsumerConfigurator<TMessage> configurator, IMQServiceProvider provider)
+            where TMessage : class
+            where TContent : class;
     }
 
     public class MQMessageConsumerRegistration<TMessageConsumer> : IMQMessageConsumerRegistration
-        where TMessageConsumer : class, IMessageConsumer
+        where TMessageConsumer : class, IMQMessageConsumer
     {
         public Type MessageConsumerType => typeof(TMessageConsumer);
 
         public void AttachToConsumer<TMessage>(IMQConsumerConfigurator<TMessage> configurator, IMQServiceProvider provider)
             where TMessage : class
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AttachToConsumer<TMessage, TContent>(IMQConsumerConfigurator<TMessage> configurator, IMQServiceProvider provider)
+            where TMessage : class
+            where TContent : class
         {
             throw new NotImplementedException();
         }

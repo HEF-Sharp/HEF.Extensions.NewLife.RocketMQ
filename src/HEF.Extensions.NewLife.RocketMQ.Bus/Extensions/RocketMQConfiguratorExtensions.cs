@@ -45,7 +45,7 @@ namespace NewLife.RocketMQ.Bus
         }
 #endif
         public static void BindMessageConsumer<TMessageConsumer>(this IRocketMQConsumerConfigurator configurator, IMQBusRegistration registration)            
-            where TMessageConsumer : class, IMessageConsumer
+            where TMessageConsumer : class, IMQMessageConsumer
         {
             configurator.BindMessageConsumer<MessageExt, TMessageConsumer>(registration);
         }

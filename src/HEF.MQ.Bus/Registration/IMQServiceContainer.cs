@@ -5,7 +5,7 @@ namespace HEF.MQ.Bus
     public interface IMQServiceContainer
     {
         void RegisterMessageConsumer<TMessageConsumer>()
-            where TMessageConsumer : class, IMessageConsumer;
+            where TMessageConsumer : class, IMQMessageConsumer;
 
         void RegisterScoped<TService, TImplementation>()
             where TService : class

@@ -4,18 +4,18 @@
     {
         public static void BindMessageConsumer<TMessage, TMessageConsumer>(this IMQConsumerConfigurator<TMessage> configurator, IMQBusRegistration registration)
             where TMessage : class
-            where TMessageConsumer : class, IMessageConsumer
+            where TMessageConsumer : class, IMQMessageConsumer
         {
             registration.ConfigureMessageConsumer<TMessage, TMessageConsumer>(configurator);
         }
 
-        public static void BindTypedMessageConsumer<TMessage, TContent, TTypedMessageConsumer>(this IMQConsumerConfigurator<TMessage> configurator,
+        public static void BindTypedMessageConsumer<TMessage, TContent, TMessageConsumer>(this IMQConsumerConfigurator<TMessage> configurator,
             IMQBusRegistration registration)
             where TMessage : class
             where TContent : class
-            where TTypedMessageConsumer : class, IMQTypedMessageConsumer<TMessage, TContent>
+            where TMessageConsumer : class, IMQMessageConsumer
         {
-            configurator.BindMessageConsumer<TMessage, TTypedMessageConsumer>(registration);
+            registration.ConfigureTypedMessageConsumer<TMessage, TContent, TMessageConsumer>(configurator);
         }
     }
 }

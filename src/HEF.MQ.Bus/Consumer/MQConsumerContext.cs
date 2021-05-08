@@ -1,5 +1,20 @@
 ﻿namespace HEF.MQ.Bus
 {
+    public class MQConsumerContext<TMessage, TMessageConsumer>
+        where TMessage : class        
+        where TMessageConsumer : class, IMQMessageConsumer<TMessage>
+    {
+        public MQConsumerContext(TMessage message, TMessageConsumer messageConsumer)
+        {
+            Message = message;
+            MessageConsumer = messageConsumer;
+        }
+
+        public TMessage Message { get; }
+
+        public TMessageConsumer MessageConsumer { get; }
+    }
+
     public class MQTypedConsumerContext<TMessage, TContent, TMessageConsumer>        
         where TMessage : class
         where TContent : class
