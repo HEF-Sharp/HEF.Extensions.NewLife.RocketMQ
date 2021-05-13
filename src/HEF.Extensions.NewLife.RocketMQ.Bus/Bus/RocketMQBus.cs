@@ -5,8 +5,15 @@ using System.Threading.Tasks;
 
 namespace NewLife.RocketMQ.Bus
 {
-    public class RocketMQBus : IMQBusControl
+    public class RocketMQBus : IMQBus
     {
+        private readonly IMQBusRegistration _registration;        
+
+        public RocketMQBus(IMQBusRegistration registration)
+        {
+            _registration = registration;
+        }
+
         public Task StartAsync(CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();

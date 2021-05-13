@@ -32,8 +32,6 @@ namespace HEF.MQ.Bus
         {
             var messageConsumerRegistration = GetMessageConsumerRegistration<TMessageConsumer>();
 
-            CheckIsMessageConsumer<TMessage>(messageConsumerRegistration);
-
             messageConsumerRegistration.AttachToConsumer(configurator, _provider);
         }
 
@@ -43,8 +41,6 @@ namespace HEF.MQ.Bus
             where TMessageConsumer : class, IMQMessageConsumer
         {
             var messageConsumerRegistration = GetMessageConsumerRegistration<TMessageConsumer>();
-
-            CheckIsTypedMessageConsumer<TMessage, TContent>(messageConsumerRegistration);
 
             messageConsumerRegistration.AttachToConsumer<TMessage, TContent>(configurator, _provider);
         }
@@ -58,25 +54,6 @@ namespace HEF.MQ.Bus
                 throw new ArgumentException($"The message consumer type was not found: {messageConsumerType.Name}", nameof(TMessageConsumer));
 
             return messageConsumerRegistration;
-        }
-
-        private void CheckIsMessageConsumer<TMessage>(IMQMessageConsumerRegistration messageConsumerRegistration)
-            where TMessage : class
-        {
-            var messageConsumerType = messageConsumerRegistration.MessageConsumerType;
-
-            if (!typeof(IMQMessageConsumer<TMessage>).IsAssignableFrom(messageConsumerType))
-                throw new InvalidCastException($"message consumer type '{messageConsumerType.Name}' can not consume message of '{typeof(TMessage).Name}'");
-        }
-
-        private void CheckIsTypedMessageConsumer<TMessage, TContent>(IMQMessageConsumerRegistration messageConsumerRegistration)
-            where TMessage : class
-            where TContent : class
-        {
-            var messageConsumerType = messageConsumerRegistration.MessageConsumerType;
-
-            if (!typeof(IMQTypedMessageConsumer<TMessage, TContent>).IsAssignableFrom(messageConsumerType))
-                throw new InvalidCastException($"message consumer type '{messageConsumerType.Name}' can not consume typed message of <{typeof(TMessage).Name}, {typeof(TContent).Name}>");
         }
         #endregion
     }

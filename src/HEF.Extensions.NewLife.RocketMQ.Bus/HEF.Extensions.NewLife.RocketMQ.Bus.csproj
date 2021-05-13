@@ -28,7 +28,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HEF.Porting.NewLife.RocketMQ" Version="1.5.2021.423" />
+    <PackageReference Include="HEF.Porting.NewLife.RocketMQ" Version="1.5.2021.512" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">

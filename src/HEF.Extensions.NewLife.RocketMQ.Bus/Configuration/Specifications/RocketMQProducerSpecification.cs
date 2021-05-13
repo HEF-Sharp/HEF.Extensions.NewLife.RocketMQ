@@ -7,6 +7,8 @@ namespace NewLife.RocketMQ.Bus
     public interface IRocketMQProducerSpecification
     {
         string TopicName { get; }
+
+        Func<ProducerFactory, IRocketMQTypedProducer> CreateTypedProducerFactory();
     }
 
     public class RocketMQProducerSpecification
@@ -18,6 +20,8 @@ namespace NewLife.RocketMQ.Bus
         public RocketMQProducerSpecification(string topicName)
         {
             TopicName = topicName;
+
+            _messageSerializer = new RocketMQMessageJsonSerializer();
         }
 
         public string TopicName { get; }
@@ -30,6 +34,16 @@ namespace NewLife.RocketMQ.Bus
         public void Configure(Action<Producer> configure)
         {
             _producerConfigure = configure;
+        }
+
+        public Func<ProducerFactory, IRocketMQTypedProducer> CreateTypedProducerFactory()
+        {
+            return producerFactory =>
+            {
+                var topicProducer = producerFactory.GetTopicProducer(TopicName, _producerConfigure);
+
+                return new RocketMQTypedProducer(topicProducer, _messageSerializer);
+            };
         }
     }
 }

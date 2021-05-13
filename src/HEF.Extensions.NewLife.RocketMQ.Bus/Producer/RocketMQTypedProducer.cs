@@ -4,12 +4,21 @@ using System;
 
 namespace NewLife.RocketMQ.Bus
 {
+    public interface IRocketMQTypedProducer
+    {
+        SendResult Publish<TContent>(TContent content) where TContent : class;
+
+        SendResult Publish<TContent>(TContent content, string tag) where TContent : class;
+
+        SendResult Publish<TContent>(TContent content, string tag, string key) where TContent : class;
+    }
+
     public class RocketMQTypedProducer : IRocketMQTypedProducer
     {
         private readonly Producer _innerProducer;
-        private readonly IRocketMQMessageSerializer _messageSerializer;
+        private readonly IMQMessageSerializer<Message> _messageSerializer;
 
-        public RocketMQTypedProducer(Producer producer, IRocketMQMessageSerializer messageSerializer)
+        public RocketMQTypedProducer(Producer producer, IMQMessageSerializer<Message> messageSerializer)
         {
             if (producer == null)
                 throw new ArgumentNullException(nameof(producer));

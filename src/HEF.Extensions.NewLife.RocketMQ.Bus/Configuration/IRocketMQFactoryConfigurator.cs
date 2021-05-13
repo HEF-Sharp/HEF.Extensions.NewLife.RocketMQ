@@ -22,7 +22,6 @@ namespace NewLife.RocketMQ.Bus
         /// <summary>
         /// Subscribe to topic
         /// </summary>
-        void TopicConsumer<TContent>(string topicName, string group, Action<IRocketMQConsumerConfigurator<TContent>> configure)
-            where TContent : class;
+        void TopicConsumer(string topicName, string group, Action<IRocketMQConsumerConfigurator> configure);            
     }
 }

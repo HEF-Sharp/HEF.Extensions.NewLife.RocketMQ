@@ -20,4 +20,23 @@ namespace HEF.MQ.Bus
     {
         Task<bool> Consume(MQTypedMessage<TMessage, TContent> typedMessage);
     }
+
+    public class DoNothingMQMessageConsumer<TMessage> : IMQMessageConsumer<TMessage>
+        where TMessage : class
+    {
+        public Task<bool> Consume(TMessage message)
+        {
+            return Task.FromResult(true);
+        }
+    }
+
+    public class DoNothingMQTypedMessageConsumer<TMessage, TContent> : IMQTypedMessageConsumer<TMessage, TContent>
+        where TMessage : class
+        where TContent : class
+    {
+        public Task<bool> Consume(MQTypedMessage<TMessage, TContent> typedMessage)
+        {
+            return Task.FromResult(true);
+        }
+    }
 }

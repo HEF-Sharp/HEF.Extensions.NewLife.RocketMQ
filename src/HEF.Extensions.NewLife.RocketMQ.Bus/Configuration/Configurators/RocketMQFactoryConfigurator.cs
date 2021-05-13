@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HEF.MQ.Bus;
+using System;
 using System.Collections.ObjectModel;
 
 namespace NewLife.RocketMQ.Bus
@@ -39,18 +40,22 @@ namespace NewLife.RocketMQ.Bus
             _producers.Add(producerSpec);
         }
 
-        public void TopicConsumer<TContent>(string topicName, string group, Action<IRocketMQConsumerConfigurator<TContent>> configure)
-            where TContent : class
+        public void TopicConsumer(string topicName, string group, Action<IRocketMQConsumerConfigurator> configure)            
         {
             if (topicName.IsNullOrWhiteSpace())
                 throw new ArgumentNullException(nameof(topicName));
             if (group.IsNullOrWhiteSpace())
                 throw new ArgumentNullException(nameof(group));
 
-            var consumerSpec = new RocketMQConsumerSpecification<TContent>(topicName, group);
+            var consumerSpec = new RocketMQConsumerSpecification(topicName, group);
             configure?.Invoke(consumerSpec);
 
             _consumers.Add(consumerSpec);
+        }
+
+        public IMQBus Build(IMQBusRegistration registration)
+        {
+            throw new NotImplementedException();
         }
     }
 }

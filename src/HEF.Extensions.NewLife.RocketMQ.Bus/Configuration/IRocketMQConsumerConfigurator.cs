@@ -10,9 +10,4 @@ namespace NewLife.RocketMQ.Bus
 
         void Configure(Action<Consumer> configure);
     }
-
-    public interface IRocketMQConsumerConfigurator<TContent> : IRocketMQConsumerConfigurator
-        where TContent : class
-    {
-    }
 }

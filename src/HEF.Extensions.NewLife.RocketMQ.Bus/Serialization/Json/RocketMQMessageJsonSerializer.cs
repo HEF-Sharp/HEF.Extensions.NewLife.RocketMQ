@@ -9,7 +9,7 @@ using System.Text.Json;
 
 namespace NewLife.RocketMQ.Bus
 {
-    public class RocketMQMessageJsonSerializer : IRocketMQMessageSerializer
+    public class RocketMQMessageJsonSerializer : IMQMessageSerializer<Message>
     {
 #if NETSTANDARD2_0
         private readonly JsonSerializerSettings _serializerSettings;

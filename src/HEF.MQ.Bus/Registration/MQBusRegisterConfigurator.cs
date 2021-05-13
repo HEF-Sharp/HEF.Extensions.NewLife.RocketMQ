@@ -8,6 +8,8 @@ namespace HEF.MQ.Bus
         IMQServiceContainer Container { get; }
 
         void AddMessageConsumer<TMessageConsumer>() where TMessageConsumer : class, IMQMessageConsumer;
+
+        void SetBusFactory<TBusFactory>(TBusFactory busFactory) where TBusFactory : IMQBusFactory;
     }
 
     public class MQBusRegisterConfigurator : IMQBusRegisterConfigurator
@@ -30,6 +32,16 @@ namespace HEF.MQ.Bus
 
                 return new MQMessageConsumerRegistration<TMessageConsumer>();
             });
+        }
+
+        public void SetBusFactory<TBusFactory>(TBusFactory busFactory)
+            where TBusFactory : IMQBusFactory
+        {
+            if (busFactory == null)
+                throw new ArgumentNullException(nameof(busFactory));
+
+            Container.RegisterSingleton(provider => CreateRegistration(provider));
+            Container.RegisterSingleton(provider => busFactory.CreateMQBus(provider.GetRequiredService<IMQBusRegistration>()));
         }
 
         protected IMQBusRegistration CreateRegistration(IMQServiceProvider provider)
