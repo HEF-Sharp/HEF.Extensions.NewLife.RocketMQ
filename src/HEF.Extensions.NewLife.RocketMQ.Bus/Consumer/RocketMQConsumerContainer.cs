@@ -4,7 +4,12 @@ using System.Linq;
 
 namespace NewLife.RocketMQ.Bus
 {
-    public class RocketMQConsumerContainer : IDisposable
+    public interface IRocketMQConsumerContainer : IDisposable
+    {
+        void StartConsume();
+    }
+
+    public class RocketMQConsumerContainer : IRocketMQConsumerContainer
     {
         private readonly RocketMQClientConfig _clientConfig;
         private readonly IReadOnlyCollection<IRocketMQConsumerSpecification> _consumers;

@@ -1,11 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace HEF.MQ.Bus
 {
-    public interface IMQBus
+    public interface IMQBusControl
     {
+        Task StartAsync(CancellationToken cancellationToken = default);
 
+        Task StopAsync(CancellationToken cancellationToken = default);
+    }
+
+    public interface IMQBus<out TProducerProvider> : IMQBusControl
+        where TProducerProvider : class
+    {
+        TProducerProvider ProducerProvider { get; }
     }
 }

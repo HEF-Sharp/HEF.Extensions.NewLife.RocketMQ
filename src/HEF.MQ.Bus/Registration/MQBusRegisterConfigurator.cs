@@ -9,7 +9,7 @@ namespace HEF.MQ.Bus
 
         void AddMessageConsumer<TMessageConsumer>() where TMessageConsumer : class, IMQMessageConsumer;
 
-        void SetBusFactory<TBusFactory>(TBusFactory busFactory) where TBusFactory : IMQBusFactory;
+        void SetBusFactory<TProducerProvider>(IMQBusFactory<TProducerProvider> busFactory) where TProducerProvider : class;
     }
 
     public class MQBusRegisterConfigurator : IMQBusRegisterConfigurator
@@ -34,14 +34,17 @@ namespace HEF.MQ.Bus
             });
         }
 
-        public void SetBusFactory<TBusFactory>(TBusFactory busFactory)
-            where TBusFactory : IMQBusFactory
+        public void SetBusFactory<TProducerProvider>(IMQBusFactory<TProducerProvider> busFactory)
+            where TProducerProvider : class
         {
             if (busFactory == null)
                 throw new ArgumentNullException(nameof(busFactory));
 
             Container.RegisterSingleton(provider => CreateRegistration(provider));
             Container.RegisterSingleton(provider => busFactory.CreateMQBus(provider.GetRequiredService<IMQBusRegistration>()));
+
+            Container.RegisterSingleton(provider => provider.GetRequiredService<IMQBus<TProducerProvider>>() as IMQBusControl);
+            Container.RegisterSingleton(provider => provider.GetRequiredService<IMQBus<TProducerProvider>>().ProducerProvider);
         }
 
         protected IMQBusRegistration CreateRegistration(IMQServiceProvider provider)

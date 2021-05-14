@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace NewLife.RocketMQ.Bus
 {
-    public interface IRocketMQProducerProvider
+    public interface IRocketMQProducerProvider : IDisposable
     {
         IRocketMQTypedProducer GetTypedProducer(string topicName);
     }
 
-    public class RocketMQProducerProvider : IRocketMQProducerProvider, IDisposable
+    public class RocketMQProducerProvider : IRocketMQProducerProvider
     {
         private readonly RocketMQClientConfig _clientConfig;
         private readonly IReadOnlyDictionary<string, IRocketMQProducerSpecification> _producers;

@@ -53,9 +53,12 @@ namespace NewLife.RocketMQ.Bus
             _consumers.Add(consumerSpec);
         }
 
-        public IMQBus Build(IMQBusRegistration registration)
+        public IMQBus<IRocketMQProducerProvider> Build(IMQBusRegistration registration)
         {
-            throw new NotImplementedException();
+            var producerProvider = new RocketMQProducerProvider(_clientConfig, _producers);
+            var consumerContainer = new RocketMQConsumerContainer(_clientConfig, _consumers);
+
+            return new RocketMQBus(registration, producerProvider, consumerContainer);
         }
     }
 }

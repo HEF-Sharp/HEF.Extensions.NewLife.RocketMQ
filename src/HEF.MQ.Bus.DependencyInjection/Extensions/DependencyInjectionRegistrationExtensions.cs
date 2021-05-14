@@ -8,7 +8,7 @@ namespace HEF.MQ.Bus
     {
         public static IServiceCollection AddMQBus(this IServiceCollection collection, Action<IServiceCollectionMQBusConfigurator> configure = null)
         {
-            if (collection.Any(d => d.ServiceType == typeof(IMQBus)))
+            if (collection.Any(d => d.ServiceType == typeof(IMQBusControl)))
             {
                 throw new InvalidOperationException("AddMQBus() was already called and may only be called once per container.");
             }

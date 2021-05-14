@@ -3,7 +3,7 @@ using System;
 
 namespace NewLife.RocketMQ.Bus
 {
-    public class RocketMQBusFactory : IMQBusFactory
+    public class RocketMQBusFactory : IMQBusFactory<IRocketMQProducerProvider>
     {
         private readonly Action<IMQBusRegistration, IRocketMQFactoryConfigurator> _configure;
 
@@ -12,7 +12,7 @@ namespace NewLife.RocketMQ.Bus
             _configure = configure;
         }
 
-        public IMQBus CreateMQBus(IMQBusRegistration registration)
+        public IMQBus<IRocketMQProducerProvider> CreateMQBus(IMQBusRegistration registration)
         {
             var configurator = new RocketMQFactoryConfigurator();
 

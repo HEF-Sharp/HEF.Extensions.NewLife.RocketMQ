@@ -1,7 +1,8 @@
 ﻿namespace HEF.MQ.Bus
 {
-    public interface IMQBusFactory
+    public interface IMQBusFactory<TProducerProvider>
+        where TProducerProvider : class
     {
-        IMQBus CreateMQBus(IMQBusRegistration registration);
+        IMQBus<TProducerProvider> CreateMQBus(IMQBusRegistration registration);
     }
 }
