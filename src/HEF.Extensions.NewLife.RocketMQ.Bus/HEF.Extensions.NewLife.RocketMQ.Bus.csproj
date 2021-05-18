@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net5.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netcoreapp3.1;net5.0</TargetFrameworks>
     <AssemblyName>HEF.Extensions.NewLife.RocketMQ.Bus</AssemblyName>
     <RootNamespace>NewLife.RocketMQ.Bus</RootNamespace>
     <AssemblyTitle>RocketMQ Bus实现</AssemblyTitle>
     <Description>Bus implement for NewLife.RocketMQ</Description>
     <Company>GreatBillows</Company>
     <Copyright>Copyright © GreatBillows 2021</Copyright>
-    <Version>1.5.2021.0518</Version>
-    <FileVersion>1.5.2021.0518</FileVersion>
+    <Version>1.5.2021.05182</Version>
+    <FileVersion>1.5.2021.05182</FileVersion>
     <AssemblyVersion>1.5.*</AssemblyVersion>
     <Deterministic>false</Deterministic>
     <LangVersion>latest</LangVersion>
