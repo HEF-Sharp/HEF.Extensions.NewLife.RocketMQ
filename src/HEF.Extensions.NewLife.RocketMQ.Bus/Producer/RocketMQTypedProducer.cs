@@ -6,11 +6,7 @@ namespace NewLife.RocketMQ.Bus
 {
     public interface IRocketMQTypedProducer
     {
-        SendResult Publish<TContent>(TContent content) where TContent : class;
-
-        SendResult Publish<TContent>(TContent content, string tag) where TContent : class;
-
-        SendResult Publish<TContent>(TContent content, string tag, string key) where TContent : class;
+        SendResult Publish<TContent>(TContent content, Action<IRocketMQMessageBuilder> msgConfigure = null) where TContent : class;
     }
 
     public class RocketMQTypedProducer : IRocketMQTypedProducer
@@ -29,21 +25,19 @@ namespace NewLife.RocketMQ.Bus
             _messageSerializer = messageSerializer;
         }
 
-        public SendResult Publish<TContent>(TContent content) where TContent : class
-            => Publish(content, null);
-
-        public SendResult Publish<TContent>(TContent content, string tag) where TContent : class
-            => Publish(content, tag, null);        
-
-        public SendResult Publish<TContent>(TContent content, string tag, string key) where TContent : class
+        public SendResult Publish<TContent>(TContent content, Action<IRocketMQMessageBuilder> msgConfigure = null)
+            where TContent : class
         {
             if (content == null)
                 throw new ArgumentNullException(nameof(content));
 
+            var messageBuilder = new RocketMQMessageBuilder();
+            msgConfigure?.Invoke(messageBuilder);
+
             var typedMessage = new MQTypedMessage<Message, TContent>
             {
                 Content = content,
-                Message = new Message { Tags = tag, Keys = key }
+                Message = messageBuilder.Build()
             };
 
             var message = _messageSerializer.Serialize(typedMessage);

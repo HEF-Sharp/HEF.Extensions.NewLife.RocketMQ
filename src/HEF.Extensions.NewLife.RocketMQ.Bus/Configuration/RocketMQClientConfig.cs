@@ -1,17 +1,15 @@
-﻿using System;
-
-namespace NewLife.RocketMQ.Bus
+﻿namespace NewLife.RocketMQ.Bus
 {
     public class RocketMQClientConfig
     {
         /// <summary>
         /// 名称服务器Address
         /// </summary>
-        public String NameServer { get; set; }
+        public string NameServer { get; set; } = "127.0.0.1:9876";
 
         /// <summary>
         /// Topic队列数量
         /// </summary>
-        public int TopicQueueNum { get; set; }
+        public int TopicQueueNum { get; set; } = 4;
     }
 }

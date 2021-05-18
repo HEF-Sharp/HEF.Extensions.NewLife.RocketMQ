@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HEF.MQ.Bus.DependencyInjection\HEF.MQ.Bus.DependencyInjection.csproj" />
     <ProjectReference Include="..\HEF.MQ.Bus\HEF.MQ.Bus.csproj" />
   </ItemGroup>
 

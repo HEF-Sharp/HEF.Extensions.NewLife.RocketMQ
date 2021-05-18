@@ -12,7 +12,7 @@ namespace NewLife.RocketMQ.Bus
     public static class RocketMQConfiguratorExtensions
     {
 #if NETSTANDARD2_0
-        public static void JsonSerialize(this IRocketMQProducerConfigurator configurator, Action<JsonSerializerSettings> serializeConfigure)
+        public static void JsonSerialize(this IRocketMQProducerConfigurator configurator, Action<JsonSerializerSettings> serializeConfigure = null)
         {
             var serializerSettings = new JsonSerializerSettings();
             serializeConfigure?.Invoke(serializerSettings);
@@ -20,7 +20,7 @@ namespace NewLife.RocketMQ.Bus
             configurator.Serialize(new RocketMQMessageJsonSerializer(serializerSettings));
         }
 
-        public static void JsonDeserialize(this IRocketMQConsumerConfigurator configurator, Action<JsonSerializerSettings> serializeConfigure)           
+        public static void JsonDeserialize(this IRocketMQConsumerConfigurator configurator, Action<JsonSerializerSettings> serializeConfigure = null)           
         {
             var serializerSettings = new JsonSerializerSettings();
             serializeConfigure?.Invoke(serializerSettings);
@@ -28,7 +28,7 @@ namespace NewLife.RocketMQ.Bus
             configurator.Deserialize(new RocketMQMessageJsonDeserializer(serializerSettings));
         }
 #else
-        public static void JsonSerialize(this IRocketMQProducerConfigurator configurator, Action<JsonSerializerOptions> serializeConfigure)
+        public static void JsonSerialize(this IRocketMQProducerConfigurator configurator, Action<JsonSerializerOptions> serializeConfigure = null)
         {
             var serializerOptions = new JsonSerializerOptions();
             serializeConfigure?.Invoke(serializerOptions);
@@ -36,7 +36,7 @@ namespace NewLife.RocketMQ.Bus
             configurator.Serialize(new RocketMQMessageJsonSerializer(serializerOptions));
         }
 
-        public static void JsonDeserialize(this IRocketMQConsumerConfigurator configurator, Action<JsonSerializerOptions> serializeConfigure)
+        public static void JsonDeserialize(this IRocketMQConsumerConfigurator configurator, Action<JsonSerializerOptions> serializeConfigure = null)
         {
             var serializerOptions = new JsonSerializerOptions();
             serializeConfigure?.Invoke(serializerOptions);
@@ -51,7 +51,7 @@ namespace NewLife.RocketMQ.Bus
         }
 
         public static void BindTypedMessageConsumer<TContent, TTypedMessageConsumer>(this IRocketMQConsumerConfigurator configurator,
-            IMQBusRegistration registration)            
+            IMQBusRegistration registration)
             where TContent : class
             where TTypedMessageConsumer : class, IMQTypedMessageConsumer<MessageExt, TContent>
         {

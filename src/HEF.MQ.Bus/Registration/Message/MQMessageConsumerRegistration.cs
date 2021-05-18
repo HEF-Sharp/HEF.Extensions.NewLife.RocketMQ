@@ -24,7 +24,7 @@ namespace HEF.MQ.Bus
         {
             CheckIsMessageConsumer<TMessage>();
 
-            configurator.Consume(new MQMessageConsumeExecutor<TMessage, TMessageConsumer>(provider));
+            configurator.Consume(() => new MQMessageConsumeExecutor<TMessage, TMessageConsumer>(provider));
         }
 
         public void AttachToConsumer<TMessage, TContent>(IMQConsumerConfigurator<TMessage> configurator, IMQServiceProvider provider)

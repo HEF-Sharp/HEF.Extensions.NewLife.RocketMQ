@@ -21,7 +21,7 @@
     <ProjectUrl>https://github.com/HEF-Sharp/HEF.Extensions.NewLife.RocketMQ</ProjectUrl>
     <RepositoryUrl>https://github.com/HEF-Sharp/HEF.Extensions.NewLife.RocketMQ</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>MQ;Bus</PackageTags>
+    <PackageTags>MQ;Bus;DependencyInjection</PackageTags>
     <PackageReleaseNotes>DependencyInjection integrations for MQ.Bus by HEF</PackageReleaseNotes>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

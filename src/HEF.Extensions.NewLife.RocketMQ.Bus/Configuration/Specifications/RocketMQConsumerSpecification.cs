@@ -32,7 +32,7 @@ namespace NewLife.RocketMQ.Bus
         private List<string> _subscribeTags = new();
         private IMQMessageDeserializer<MessageExt> _messageDeserializer;
 
-        private Func<IMQMessageDeserializer<MessageExt>, IMQMessageConsumeExecutor<MessageExt>> _consumeExecuterFactory;
+        private Func<IMQMessageDeserializer<MessageExt>, IMQMessageConsumeExecutor<MessageExt>> _consumeExecutorFactory;
 
         public RocketMQConsumerSpecification(string topicName, string group)
         {
@@ -66,17 +66,17 @@ namespace NewLife.RocketMQ.Bus
             _consumerConfigure = configure;
         }
 
-        public void Consume(IMQMessageConsumeExecutor<MessageExt> executer)
+        public void Consume(Func<IMQMessageConsumeExecutor<MessageExt>> executorFactory)
         {
-            if (executer == null)
-                throw new ArgumentNullException(nameof(executer));
+            if (executorFactory == null)
+                throw new ArgumentNullException(nameof(executorFactory));
 
-            _consumeExecuterFactory = deserializer => executer;
+            _consumeExecutorFactory = deserializer => executorFactory.Invoke();
         }
 
-        public void TypedConsume(Func<IMQMessageDeserializer<MessageExt>, IMQMessageConsumeExecutor<MessageExt>> executerFactory)
+        public void TypedConsume(Func<IMQMessageDeserializer<MessageExt>, IMQMessageConsumeExecutor<MessageExt>> executorFactory)
         {
-            _consumeExecuterFactory = executerFactory;
+            _consumeExecutorFactory = executorFactory;
         }
 
         public Action<ConsumerContainer> CreateAddTopicConsumerAction()
@@ -90,20 +90,15 @@ namespace NewLife.RocketMQ.Bus
         }
 
         #region Create ConsumeFunction
-        private IMQMessageConsumeExecutor<MessageExt> CreateConsumeExecutor()
-        {
-            if (_consumeExecuterFactory == null)
-                throw new InvalidOperationException("not configured topic message consume executor");
-
-            return _consumeExecuterFactory.Invoke(_messageDeserializer);
-        }
-
         private Func<MessageQueue, MessageExt[], bool> CreateConsumeFunction()
         {
-            var consumeExecutor = CreateConsumeExecutor();
+            if (_consumeExecutorFactory == null)
+                throw new InvalidOperationException("not configured topic message consume executor");
 
             return (queue, messageArr) =>
             {
+                using var consumeExecutor = _consumeExecutorFactory.Invoke(_messageDeserializer);
+
                 foreach (var message in messageArr)
                 {
                     Func<Task<bool>> executeFunc = () => consumeExecutor.Execute(message);

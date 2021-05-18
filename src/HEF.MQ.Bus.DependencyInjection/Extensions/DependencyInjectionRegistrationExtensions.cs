@@ -6,7 +6,8 @@ namespace HEF.MQ.Bus
 {
     public static class DependencyInjectionRegistrationExtensions
     {
-        public static IServiceCollection AddMQBus(this IServiceCollection collection, Action<IServiceCollectionMQBusConfigurator> configure = null)
+        public static IServiceCollection AddMQBus(this IServiceCollection collection,
+            Action<IServiceCollectionMQBusConfigurator> configure = null)
         {
             if (collection.Any(d => d.ServiceType == typeof(IMQBusControl)))
             {

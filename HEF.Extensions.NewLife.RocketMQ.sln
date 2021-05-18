@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HEF.MQ.Bus.DependencyInject
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HEF.MQ.Bus.AspNetCore", "src\HEF.MQ.Bus.AspNetCore\HEF.MQ.Bus.AspNetCore.csproj", "{2540F380-5795-43BC-88E5-D2A50D31E771}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{2CA7E5FD-7E51-4D12-AAF5-6DE3A6E234BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewLife.RocketMQ.AspNetCoreIntegrate", "test\NewLife.RocketMQ.AspNetCoreIntegrate\NewLife.RocketMQ.AspNetCoreIntegrate.csproj", "{3C37143E-C674-4226-B5FE-CA6A75619E0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,9 +37,16 @@ Global
 		{2540F380-5795-43BC-88E5-D2A50D31E771}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2540F380-5795-43BC-88E5-D2A50D31E771}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2540F380-5795-43BC-88E5-D2A50D31E771}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C37143E-C674-4226-B5FE-CA6A75619E0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C37143E-C674-4226-B5FE-CA6A75619E0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C37143E-C674-4226-B5FE-CA6A75619E0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C37143E-C674-4226-B5FE-CA6A75619E0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3C37143E-C674-4226-B5FE-CA6A75619E0A} = {2CA7E5FD-7E51-4D12-AAF5-6DE3A6E234BB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92321F1D-2B65-46BA-B5BA-91B1C58C74CA}

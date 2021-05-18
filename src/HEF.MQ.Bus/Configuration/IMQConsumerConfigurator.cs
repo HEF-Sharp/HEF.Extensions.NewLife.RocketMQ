@@ -7,8 +7,8 @@ namespace HEF.MQ.Bus
     {
         void Deserialize(IMQMessageDeserializer<TMessage> deserializer);
 
-        void Consume(IMQMessageConsumeExecutor<TMessage> executer);
+        void Consume(Func<IMQMessageConsumeExecutor<TMessage>> executorFactory);
 
-        void TypedConsume(Func<IMQMessageDeserializer<TMessage>, IMQMessageConsumeExecutor<TMessage>> executerFactory);
+        void TypedConsume(Func<IMQMessageDeserializer<TMessage>, IMQMessageConsumeExecutor<TMessage>> executorFactory);
     }
 }

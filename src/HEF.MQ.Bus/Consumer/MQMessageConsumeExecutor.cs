@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace HEF.MQ.Bus
 {
-    public interface IMQMessageConsumeExecutor<TMessage>
+    public interface IMQMessageConsumeExecutor<TMessage> : IDisposable
         where TMessage : class
     {
         Task<bool> Execute(TMessage message);
@@ -15,12 +15,12 @@ namespace HEF.MQ.Bus
     {
         private static IMQMessageConsumer<TMessage> _emptyMessageConsumer = new DoNothingMQMessageConsumer<TMessage>();
 
-        private readonly IMQServiceProvider _provider;
+        private readonly IMQServiceScope _serviceScope;
         private Lazy<IMQMessageConsumer<TMessage>> _messageConsumer;
 
         public MQMessageConsumeExecutor(IMQServiceProvider provider)
         {
-            _provider = provider;
+            _serviceScope = provider.CreateScope();
 
             _messageConsumer = new Lazy<IMQMessageConsumer<TMessage>>(ResolveMessageConsumer);
         }
@@ -32,10 +32,15 @@ namespace HEF.MQ.Bus
             return consumerContext.MessageConsumer.Consume(consumerContext.Message);
         }
 
+        public void Dispose()
+        {
+            _serviceScope.Dispose();
+        }
+
         #region Helper Functions
         private IMQMessageConsumer<TMessage> ResolveMessageConsumer()
         {
-            var messageConsumer = _provider.GetRequiredService<TMessageConsumer>();
+            var messageConsumer = _serviceScope.ServiceProvider.GetRequiredService<TMessageConsumer>();
             if (messageConsumer == null)
                 throw new NotImplementedException($"Unable to resolve message consumer type '{typeof(TMessageConsumer).Name}'");
 
@@ -60,13 +65,13 @@ namespace HEF.MQ.Bus
         private static IMQTypedMessageConsumer<TMessage, TContent> _emptyTypedMessageConsumer
             = new DoNothingMQTypedMessageConsumer<TMessage, TContent>();
 
-        private readonly IMQServiceProvider _provider;
+        private readonly IMQServiceScope _serviceScope;
         private readonly IMQMessageDeserializer<TMessage> _deserializer;
         private Lazy<IMQTypedMessageConsumer<TMessage, TContent>> _typedMessageConsumer;
 
         public MQTypedMessageConsumeExecutor(IMQServiceProvider provider, IMQMessageDeserializer<TMessage> deserializer)
         {
-            _provider = provider;
+            _serviceScope = provider.CreateScope();
             _deserializer = deserializer;
 
             _typedMessageConsumer = new Lazy<IMQTypedMessageConsumer<TMessage, TContent>>(ResolveTypedMessageConsumer);
@@ -81,10 +86,15 @@ namespace HEF.MQ.Bus
             return consumerContext.TypedMessageConsumer.Consume(consumerContext.TypedMessage);
         }
 
+        public void Dispose()
+        {
+            _serviceScope.Dispose();
+        }
+
         #region Helper Functions
         private IMQTypedMessageConsumer<TMessage, TContent> ResolveTypedMessageConsumer()
         {
-            var messageConsumer = _provider.GetRequiredService<TMessageConsumer>();
+            var messageConsumer = _serviceScope.ServiceProvider.GetRequiredService<TMessageConsumer>();
             if (messageConsumer == null)
                 throw new NotImplementedException($"Unable to resolve message consumer type '{typeof(TMessageConsumer).Name}'");
 
