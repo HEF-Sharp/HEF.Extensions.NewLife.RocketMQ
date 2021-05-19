@@ -8,8 +8,8 @@
     <Description>AspNetCore integrations for MQ.Bus by HEF</Description>
     <Company>GreatBillows</Company>
     <Copyright>Copyright © GreatBillows 2021</Copyright>
-    <Version>1.0.0.0</Version>
-    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.0.1.0</Version>
+    <FileVersion>1.0.1.0</FileVersion>
     <AssemblyVersion>1.0.*</AssemblyVersion>
     <Deterministic>false</Deterministic>
     <LangVersion>latest</LangVersion>
