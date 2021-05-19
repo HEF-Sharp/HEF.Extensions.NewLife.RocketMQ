@@ -5,6 +5,8 @@ namespace HEF.MQ.Bus
 {
     public interface IMQBusRegistration
     {
+        IMQServiceProvider ServiceProvider { get; }
+
         void ConfigureMessageConsumer<TMessage, TMessageConsumer>(IMQConsumerConfigurator<TMessage> configurator)
             where TMessage : class
             where TMessageConsumer : class, IMQMessageConsumer;
@@ -17,14 +19,15 @@ namespace HEF.MQ.Bus
 
     public class MQBusRegistration : IMQBusRegistration
     {
-        private readonly IMQServiceProvider _provider;
         private readonly IReadOnlyDictionary<Type, IMQMessageConsumerRegistration> _messageConsumerDict;        
 
         public MQBusRegistration(IMQServiceProvider provider, IReadOnlyDictionary<Type, IMQMessageConsumerRegistration> messageConsumerDict)
         {
-            _provider = provider;
+            ServiceProvider = provider;
             _messageConsumerDict = messageConsumerDict;
         }
+
+        public IMQServiceProvider ServiceProvider { get; }
 
         public void ConfigureMessageConsumer<TMessage, TMessageConsumer>(IMQConsumerConfigurator<TMessage> configurator)
             where TMessage : class
@@ -32,7 +35,7 @@ namespace HEF.MQ.Bus
         {
             var messageConsumerRegistration = GetMessageConsumerRegistration<TMessageConsumer>();
 
-            messageConsumerRegistration.AttachToConsumer(configurator, _provider);
+            messageConsumerRegistration.AttachToConsumer(configurator, ServiceProvider);
         }
 
         public void ConfigureTypedMessageConsumer<TMessage, TContent, TMessageConsumer>(IMQConsumerConfigurator<TMessage> configurator)
@@ -42,7 +45,7 @@ namespace HEF.MQ.Bus
         {
             var messageConsumerRegistration = GetMessageConsumerRegistration<TMessageConsumer>();
 
-            messageConsumerRegistration.AttachToConsumer<TMessage, TContent>(configurator, _provider);
+            messageConsumerRegistration.AttachToConsumer<TMessage, TContent>(configurator, ServiceProvider);
         }
 
         #region Helper Functions
