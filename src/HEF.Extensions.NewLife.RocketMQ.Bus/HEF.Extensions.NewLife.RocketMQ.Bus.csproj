@@ -8,8 +8,8 @@
     <Description>Bus implement for NewLife.RocketMQ</Description>
     <Company>GreatBillows</Company>
     <Copyright>Copyright © GreatBillows 2021</Copyright>
-    <Version>1.6.0.0</Version>
-    <FileVersion>1.6.0.0</FileVersion>
+    <Version>1.6.1.0</Version>
+    <FileVersion>1.6.1.0</FileVersion>
     <AssemblyVersion>1.6.*</AssemblyVersion>
     <Deterministic>false</Deterministic>
     <LangVersion>latest</LangVersion>
@@ -30,9 +30,9 @@
   <ItemGroup>
     <PackageReference Include="HEF.Porting.NewLife.RocketMQ" Version="1.5.2021.512" />
   </ItemGroup>
-
+  
   <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Text.Json" Version="5.0.2" />
   </ItemGroup>
 
   <ItemGroup>

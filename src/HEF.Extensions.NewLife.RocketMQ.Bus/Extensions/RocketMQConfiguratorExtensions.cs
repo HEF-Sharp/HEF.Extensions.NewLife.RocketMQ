@@ -1,33 +1,12 @@
 ﻿using System;
 using HEF.MQ.Bus;
 using NewLife.RocketMQ.Protocol;
-#if NETSTANDARD2_0
-using Newtonsoft.Json;
-#else
 using System.Text.Json;
-#endif
 
 namespace NewLife.RocketMQ.Bus
 {
     public static class RocketMQConfiguratorExtensions
     {
-#if NETSTANDARD2_0
-        public static void JsonSerialize(this IRocketMQProducerConfigurator configurator, Action<JsonSerializerSettings> serializeConfigure = null)
-        {
-            var serializerSettings = new JsonSerializerSettings();
-            serializeConfigure?.Invoke(serializerSettings);
-
-            configurator.Serialize(new RocketMQMessageJsonSerializer(serializerSettings));
-        }
-
-        public static void JsonDeserialize(this IRocketMQConsumerConfigurator configurator, Action<JsonSerializerSettings> serializeConfigure = null)           
-        {
-            var serializerSettings = new JsonSerializerSettings();
-            serializeConfigure?.Invoke(serializerSettings);
-
-            configurator.Deserialize(new RocketMQMessageJsonDeserializer(serializerSettings));
-        }
-#else
         public static void JsonSerialize(this IRocketMQProducerConfigurator configurator, Action<JsonSerializerOptions> serializeConfigure = null)
         {
             var serializerOptions = new JsonSerializerOptions();
@@ -43,7 +22,7 @@ namespace NewLife.RocketMQ.Bus
 
             configurator.Deserialize(new RocketMQMessageJsonDeserializer(serializerOptions));
         }
-#endif
+
         public static void BindMessageConsumer<TMessageConsumer>(this IRocketMQConsumerConfigurator configurator, IMQBusRegistration registration)            
             where TMessageConsumer : class, IMQMessageConsumer
         {
