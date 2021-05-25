@@ -40,7 +40,7 @@ namespace NewLife.RocketMQ.Bus
         public IRocketMQMessageBuilder Delay(int delayLevel)
         {
             if (delayLevel < 1)
-                throw new ArgumentOutOfRangeException(nameof(delayLevel), "delay time level should greater than zero"); 
+                delayLevel = 0;
 
             _message.DelayTimeLevel = delayLevel;
 

@@ -8,8 +8,8 @@
     <Description>Bus implement for NewLife.RocketMQ</Description>
     <Company>GreatBillows</Company>
     <Copyright>Copyright © GreatBillows 2021</Copyright>
-    <Version>1.6.1.0</Version>
-    <FileVersion>1.6.1.0</FileVersion>
+    <Version>1.6.2.0</Version>
+    <FileVersion>1.6.2.0</FileVersion>
     <AssemblyVersion>1.6.*</AssemblyVersion>
     <Deterministic>false</Deterministic>
     <LangVersion>latest</LangVersion>
